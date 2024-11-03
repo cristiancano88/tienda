@@ -120,3 +120,29 @@ Este proyecto incluye configuración de infraestructura como código usando Terr
    ```
 
 4. **Actualizar la Configuración de Spring Boot**: Actualiza _application.properties_ con el endpoint y las credenciales proporcionadas en _terraform.tfvars_.
+
+## Desplegar con Docker
+
+### Construir la imagen
+
+Ejecuta el siguiente comando en la raíz del proyecto para construir la imagen de Docker:
+
+```bash
+docker build -t tienda .
+```
+
+### Ejecutar la aplicación en Docker
+
+Para ejecutar la aplicación en Docker, usa:
+
+```bash
+docker run -p 8080:8080 tienda
+```
+
+### Acceder a la Aplicación
+
+La aplicación estará disponible en:
+
+```web
+http://localhost:8080
+```
