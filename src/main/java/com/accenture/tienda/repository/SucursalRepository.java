@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.accenture.tienda.entity.Sucursal;
 
+import reactor.core.publisher.Flux;
+
 @Repository
 public interface SucursalRepository extends ReactiveCrudRepository<Sucursal, Long> {
-
+    
+    Flux<Sucursal> findByFranquiciaId(Long franquiciaId);
 }

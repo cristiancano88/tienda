@@ -2,11 +2,13 @@ package com.accenture.tienda.service;
 
 import org.springframework.stereotype.Service;
 
+import com.accenture.tienda.dto.ProductoConSucursal;
 import com.accenture.tienda.entity.Producto;
 import com.accenture.tienda.repository.ProductoRepository;
 import com.accenture.tienda.repository.SucursalRepository;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
@@ -38,6 +40,16 @@ public class ProductoService {
                     producto.setCantidadStock(nuevoStock);
                     return productoRepository.save(producto);
                 });
+    }
+
+    public Flux<ProductoConSucursal> obtenerProductoConMayorStockPorSucursalParaFranquicia(Long franquiciaId) {
+        return sucursalRepository.findByFranquiciaId(franquiciaId)
+                .flatMap(sucursal
+                        -> productoRepository.findBySucursalId(sucursal.getId())
+                        .sort((p1, p2) -> p2.getCantidadStock() - p1.getCantidadStock())
+                        .next()
+                        .map(producto -> new ProductoConSucursal(sucursal.getNombre(), producto))
+                );
     }
 
 }
