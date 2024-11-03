@@ -20,12 +20,12 @@ import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/sucursales")
+@RequestMapping("/productos")
 public class ProductoController {
 
     private final ProductoService productoService;
 
-    @PostMapping("/{sucursalId}/productos")
+    @PostMapping("/{sucursalId}")
     public Mono<Producto> agregarProducto(@PathVariable Long sucursalId, @RequestBody Producto producto) {
         return productoService.agregarProducto(sucursalId, producto);
     }

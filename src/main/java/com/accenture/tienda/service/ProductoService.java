@@ -15,6 +15,8 @@ import reactor.core.publisher.Mono;
 @Service
 public class ProductoService {
 
+    private static final String NOT_FOUNT_MESSAGE = "Producto no encontrado";
+
     private final ProductoRepository productoRepository;
     private final SucursalRepository sucursalRepository;
 
@@ -29,13 +31,13 @@ public class ProductoService {
 
     public Mono<Void> eliminarProducto(Long productoId) {
         return productoRepository.findById(productoId)
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Producto no encontrado")))
+                .switchIfEmpty(Mono.error(new IllegalArgumentException(NOT_FOUNT_MESSAGE)))
                 .flatMap(productoRepository::delete);
     }
 
     public Mono<Producto> actualizarStock(Long productoId, int nuevoStock) {
         return productoRepository.findById(productoId)
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Producto no encontrado")))
+                .switchIfEmpty(Mono.error(new IllegalArgumentException(NOT_FOUNT_MESSAGE)))
                 .flatMap(producto -> {
                     producto.setCantidadStock(nuevoStock);
                     return productoRepository.save(producto);
@@ -54,11 +56,10 @@ public class ProductoService {
 
     public Mono<Producto> actualizarNombreProducto(Long productoId, String nuevoNombre) {
         return productoRepository.findById(productoId)
-            .switchIfEmpty(Mono.error(new IllegalArgumentException("Producto no encontrado")))
+            .switchIfEmpty(Mono.error(new IllegalArgumentException(NOT_FOUNT_MESSAGE)))
             .flatMap(producto -> {
                 producto.setNombre(nuevoNombre);
                 return productoRepository.save(producto);
             });
     }
-
 }
