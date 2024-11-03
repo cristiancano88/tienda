@@ -52,4 +52,13 @@ public class ProductoService {
                 );
     }
 
+    public Mono<Producto> actualizarNombreProducto(Long productoId, String nuevoNombre) {
+        return productoRepository.findById(productoId)
+            .switchIfEmpty(Mono.error(new IllegalArgumentException("Producto no encontrado")))
+            .flatMap(producto -> {
+                producto.setNombre(nuevoNombre);
+                return productoRepository.save(producto);
+            });
+    }
+
 }

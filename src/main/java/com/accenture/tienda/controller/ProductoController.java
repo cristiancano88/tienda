@@ -45,4 +45,9 @@ public class ProductoController {
         return productoService.obtenerProductoConMayorStockPorSucursalParaFranquicia(franquiciaId);
     }
 
+    @PutMapping("/{productoId}/nombre")
+    public Mono<Producto> actualizarNombreProducto(@PathVariable Long productoId, @RequestParam String nuevoNombre) {
+        return productoService.actualizarNombreProducto(productoId, nuevoNombre);
+    }
+
 }
