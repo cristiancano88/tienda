@@ -3,6 +3,7 @@ package com.accenture.tienda.controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,11 @@ public class ProductoController {
     @DeleteMapping("/{productoId}")
     public Mono<Void> eliminarProducto(@PathVariable Long productoId) {
         return productoService.eliminarProducto(productoId);
+    }
+
+    @PutMapping("/{productoId}/stock")
+    public Mono<Producto> actualizarStock(@PathVariable Long productoId, @RequestParam int nuevoStock) {
+        return productoService.actualizarStock(productoId, nuevoStock);
     }
 
 }

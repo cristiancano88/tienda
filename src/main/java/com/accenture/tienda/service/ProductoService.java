@@ -31,4 +31,13 @@ public class ProductoService {
                 .flatMap(productoRepository::delete);
     }
 
+    public Mono<Producto> actualizarStock(Long productoId, int nuevoStock) {
+        return productoRepository.findById(productoId)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("Producto no encontrado")))
+                .flatMap(producto -> {
+                    producto.setCantidadStock(nuevoStock);
+                    return productoRepository.save(producto);
+                });
+    }
+
 }
