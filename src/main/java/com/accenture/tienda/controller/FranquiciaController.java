@@ -25,4 +25,9 @@ public class FranquiciaController {
         return franquiciaService.agregarFranquicia(franquicia);
     }
 
+    @PostMapping("/{franquiciaId}/sucursales")
+    public Mono<Sucursal> agregarSucursal(@PathVariable Long franquiciaId, @RequestBody Sucursal sucursal) {
+        return franquiciaService.agregarSucursal(franquiciaId, sucursal);
+    }
+
 }
