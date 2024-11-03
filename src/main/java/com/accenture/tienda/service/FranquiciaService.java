@@ -30,4 +30,13 @@ public class FranquiciaService {
                 });
     }
 
+    public Mono<Franquicia> actualizarNombreFranquicia(Long franquiciaId, String nuevoNombre) {
+        return franquiciaRepository.findById(franquiciaId)
+            .switchIfEmpty(Mono.error(new IllegalArgumentException("Franquicia no encontrada")))
+            .flatMap(franquicia -> {
+                franquicia.setNombre(nuevoNombre);
+                return franquiciaRepository.save(franquicia);
+            });
+    }
+
 }
