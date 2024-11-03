@@ -25,4 +25,10 @@ public class ProductoService {
                 });
     }
 
+    public Mono<Void> eliminarProducto(Long productoId) {
+        return productoRepository.findById(productoId)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("Producto no encontrado")))
+                .flatMap(productoRepository::delete);
+    }
+
 }

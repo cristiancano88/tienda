@@ -1,5 +1,6 @@
 package com.accenture.tienda.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,11 @@ public class ProductoController {
     @PostMapping("/{sucursalId}/productos")
     public Mono<Producto> agregarProducto(@PathVariable Long sucursalId, @RequestBody Producto producto) {
         return productoService.agregarProducto(sucursalId, producto);
+    }
+
+    @DeleteMapping("/{productoId}")
+    public Mono<Void> eliminarProducto(@PathVariable Long productoId) {
+        return productoService.eliminarProducto(productoId);
     }
 
 }
